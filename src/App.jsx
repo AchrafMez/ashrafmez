@@ -50,16 +50,12 @@ function App() {
 
   return (
     <>
-      {/* NAVBAR */}
 	  <nav className="fixed top-0 left-0 w-full z-30 backdrop-blur-xl bg-white/40 dark:bg-stone-900/40 border-b border-white/20 dark:border-stone-700/30">
   <div className="max-w-5xl mx-auto w-11/12 flex justify-between items-center py-4">
 
-    {/* Logo Name */}
     <div className="font-semibold tracking-wide text-lg text-stone-800 dark:text-stone-200">
       Achraf Mez
     </div>
-
-    {/* Links */}
     <div className="flex gap-8 text-stone-700 dark:text-stone-300 font-medium">
 
       <a
@@ -75,6 +71,13 @@ function App() {
         className="relative group"
       >
         Projects
+        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
+      </a>
+	    <a
+        href="#Journey"
+        className="relative group"
+      >
+        Journey
         <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
       </a>
 
@@ -116,7 +119,9 @@ function App() {
             <Portfolio />
           </div>
 
+		<div id="Journey">
           <Journey />
+		  </div>
 
           <div id="contact">
             <Contact />
