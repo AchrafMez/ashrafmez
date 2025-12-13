@@ -9,7 +9,6 @@ import MMarqueeWrapper from './components/MMarqueeWrapper';
 function App() {
   const [theme, setTheme] = useState(null);
 
-  // Detect theme
   useEffect(() => {
     setTheme(
       window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -18,7 +17,6 @@ function App() {
     );
   }, []);
 
-  // Apply theme
   useEffect(() => {
     if (!theme) return;
 
@@ -66,13 +64,13 @@ function App() {
         <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
       </a>
 
-      <a
+      {/* <a
         href="#projects"
         className="relative group"
       >
         Projects
         <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
-      </a>
+      </a> */}
 	    <a
         href="#Journey"
         className="relative group"
@@ -91,7 +89,6 @@ function App() {
 
     </div>
 
-    {/* Theme Toggle */}
     <button
       type="button"
       onClick={toggleTheme}
@@ -103,8 +100,6 @@ function App() {
   </div>
 </nav>
 
-
-      {/* PAGE CONTENT */}
       <div className="bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-300 min-h-screen font-inter pt-24">
 
         <div className="max-w-5xl w-11/12 mx-auto">
@@ -113,7 +108,7 @@ function App() {
             <Intro />
           </div>
 
-          <MMarqueeWrapper />
+          {/* <MMarqueeWrapper /> */}
 
           <div id="projects">
             <Portfolio />
@@ -138,3 +133,5 @@ function App() {
 }
 
 export default App;
+
+
