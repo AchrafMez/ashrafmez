@@ -29,7 +29,6 @@ function MMarqueeWrapper() {
 
   return (
     <div className="relative w-screen max-w-full overflow-hidden isolate py-10 md:py-16">
-      {/* Fades */}
       <div className="absolute left-0 top-0 bottom-0 w-20 md:w-48 bg-gradient-to-r from-white dark:from-stone-900 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-20 md:w-48 bg-gradient-to-l from-white dark:from-stone-900 to-transparent z-10 pointer-events-none" />
 

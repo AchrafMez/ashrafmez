@@ -1,17 +1,20 @@
-import React from 'react';
-import MMarqueeWrapper from './MMarqueeWrapper';
+import React from "react"
+import MMarqueeWrapper from "./MMarqueeWrapper"
 
 function Intro() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-4xl mx-auto text-center">
-        
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl dark:text-white mb-6 font-bold">
+    <section className="relative min-h-screen px-4">
+
+      <div className="flex flex-col items-center text-center
+                      pt-24 sm:pt-32 md:pt-40">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 dark:text-white">
+        {/* <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl dark:text-white mb-6 font-bold"> */}
+
           Achraf Meziouni
         </h1>
 
         <p className="text-lg sm:text-xl md:text-2xl mb-8 font-light text-stone-600 dark:text-stone-400 tracking-wide">
-          Software Engineer Student at{' '}
+          Software Engineer Student at{" "}
           <a
             href="https://1337.ma"
             target="_blank"
@@ -33,28 +36,37 @@ function Intro() {
           </a>
         </p>
 
-        <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed text-stone-700 dark:text-stone-300">
+        <p className="text-base sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed text-stone-900 dark:text-stone-300">
           Dedicated software engineering student with strong problem-solving skills
           and hands-on experience in systems programming and algorithms.
           Building clean, efficient, and genuinely useful solutions.
         </p>
+      </div>
 
-        <div className="w-full">
-          <MMarqueeWrapper />
-        </div>
-
-        <div>
-          <a
-            href="#projects"
-            className="inline-block text-sm tracking-widest uppercase text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors"
-          >
-            View Projects ↓
-          </a>
-        </div>
+      <div
+        className="
+          absolute bottom-40 left-0 w-full
+          flex flex-col items-center gap-0
+          max-[600px]:static max-[900px]
+        "
+      >
+        <MMarqueeWrapper />
+        <a
+          href="#projects"
+          className="
+            text-xs sm:text-sm tracking-widest uppercase
+            text-stone-600 dark:text-stone-400
+            hover:text-stone-900 dark:hover:text-white
+            transition-colors
+          "
+        >
+          View Projects ↓
+        </a>
 
       </div>
-    </div>
-  );
+
+    </section>
+  )
 }
 
-export default Intro;
+export default Intro

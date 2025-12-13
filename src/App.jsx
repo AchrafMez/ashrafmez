@@ -4,7 +4,9 @@ import Intro from './components/Intro';
 import Portfolio from './components/Portfolio';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
-import MMarqueeWrapper from './components/MMarqueeWrapper';
+// import MMarqueeWrapper from './components/MMarqueeWrapper';
+import Navbar from "./components/Navbar"
+
 
 function App() {
   const [theme, setTheme] = useState(null);
@@ -48,57 +50,13 @@ function App() {
 
   return (
     <>
-	  <nav className="fixed top-0 left-0 w-full z-30 backdrop-blur-xl bg-white/40 dark:bg-stone-900/40 border-b border-white/20 dark:border-stone-700/30">
-  <div className="max-w-5xl mx-auto w-11/12 flex justify-between items-center py-4">
+	 <Navbar
+  theme={theme}
+  toggleTheme={toggleTheme}
+  sun={sun}
+  moon={moon}
+/>
 
-    <div className="font-semibold tracking-wide text-lg text-stone-800 dark:text-stone-200">
-      Achraf Mez
-    </div>
-    <div className="flex gap-8 text-stone-700 dark:text-stone-300 font-medium">
-
-      <a
-        href="#about"
-        className="relative group"
-      >
-        About
-        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
-      </a>
-
-      {/* <a
-        href="#projects"
-        className="relative group"
-      >
-        Projects
-        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
-      </a> */}
-	    <a
-        href="#Journey"
-        className="relative group"
-      >
-        Journey
-        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
-      </a>
-
-      <a
-        href="#contact"
-        className="relative group"
-      >
-        Contact
-        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-full"></span>
-      </a>
-
-    </div>
-
-    <button
-      type="button"
-      onClick={toggleTheme}
-      className="p-2 rounded-md bg-stone-900 dark:bg-yellow-300 text-white dark:text-black"
-    >
-      {theme === 'dark' ? sun : moon}
-    </button>
-
-  </div>
-</nav>
 
       <div className="bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-300 min-h-screen font-inter pt-24">
 
