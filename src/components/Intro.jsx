@@ -3,7 +3,9 @@ import MMarqueeWrapper from "./MMarqueeWrapper.jsx"
 
 function Intro() {
   return (
-    <section className="relative min-h-screen flex flex-col">
+    // <section className="relative min-h-screen flex flex-col">
+    <section
+  className=" min-h-[100dvh] flex flex-col items-center justify-start pt-24 md:pt-0 md:justify-center w-full relative">
       <div className="flex-1 flex flex-col justify-center items-center px-4 pt-16 pb-8">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 
