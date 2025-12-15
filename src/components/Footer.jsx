@@ -2,14 +2,11 @@ import React from 'react';
 
 function Footer() {
 	return (
-		<div className="py-8 text-center mt-10">
-			<div className="container max-w-screen-lg mx-auto">
+		<div id='Contact' className="py-8 text-center mt-10">
+		<div className="container max-w-screen-lg mx-auto">
 				<div>
 					<div className="flex flex-wrap justify-center gap-3 mb-5">
-						<a 
-							href="https://www.linkedin.com/in/achrafmeziouni/"
-							target="_blank"
-							rel="noopener noreferrer"
+						<a href="https://www.linkedin.com/in/achrafmeziouni/" target="_blank" rel="noopener noreferrer"
 							className="bg-stone-900 dark:bg-white p-2 text-white dark:text-stone-900 inline-flex items-center rounded-md hover:opacity-80 transition-opacity">
 							<svg
 								className="w-6 h-6 fill-current"
