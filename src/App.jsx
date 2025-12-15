@@ -5,29 +5,22 @@ import Portfolio from "./components/Portfolio";
 import Journey from "./components/Journey";
 import Navbar from "./components/Navbar";
 
+const getInitTheme = () => {
+  return document.documentElement.classList.contains("dark")
+    ? "dark"
+    : "light";
+};
+
 function App() {
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState(getInitTheme);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
   const sun = (
     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path
@@ -72,3 +65,4 @@ function App() {
 }
 
 export default App;
+
