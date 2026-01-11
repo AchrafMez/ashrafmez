@@ -17,7 +17,7 @@ export default [
       title: 'CPP Modules',
       imgUrl: './assets/cpp98.webp',
       stack: ['C++'],
-      details: 'Comprehensive C++ project series focused on OOP design, STL usage, templates, inheritance, polymorphism, and following the C++98 standard.',
+      details: 'C++98 projects focused on OOP design, Polymorphism, inheritance...',
       link: 'https://github.com/AchrafMez/42-1337-CPP',
    },
    {
@@ -35,10 +35,10 @@ export default [
       link: 'https://github.com/AchrafMez/minishell',
    },
    {
-      title: 'Philosophers',
-      imgUrl: './assets/ph.jpeg',
-      stack: ['C' , 'threads', 'Mutexes'],
-      details: "Solving philosophers problem in C. focusing on synchronization, avoiding deadlocks and dataraces",
-      link: 'https://github.com/AchrafMez/philo',
+      title: 'bloxorz',
+      imgUrl: './assets/gameplay.gif',
+      stack: ['C' , 'Raylib', 'Puzzle'],
+      details: "Bloxorz a puzzle game where you roll a block to reach the target tile.",
+      link: 'https://github.com/AchrafMez/bloxorz',
    },   
 ]
