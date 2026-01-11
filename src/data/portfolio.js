@@ -11,7 +11,7 @@ export default [
       imgUrl: './assets/irc.webp',
       stack: ['C++', 'Socktes' , 'Networking'],
       details: "Custom IRC Server Implementation Using C++ and TCP/IP",
-      link: 'https://github.com/AchrafMez',
+      link: 'https://github.com/AchrafMez/irc',
    },
    {
       title: 'CPP Modules',
