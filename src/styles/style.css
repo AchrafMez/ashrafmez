@@ -7,6 +7,24 @@
   body {
     @apply bg-white dark:bg-stone-900;
   }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+body,
+#root,
+#root > div,
+nav,
+footer,
+section,
+.gradient-bg .blob {
+  transition: background-color 200ms ease-out,
+              border-color 200ms ease-out,
+              color 200ms ease-out;
 }
 
 /* ── gradient background ── */
@@ -21,6 +39,7 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  contain: strict;
 }
 
 .gradient-bg .blob {
@@ -29,6 +48,30 @@ body {
   filter: blur(80px);
   opacity: 0;
   animation: blobFloat 12s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .gradient-bg .blob {
+    animation: none;
+  }
+  .gradient-bg .blob-1 {
+    filter: blur(60px) !important;
+    width: 400px !important;
+    height: 400px !important;
+  }
+  .gradient-bg .blob-2 {
+    filter: blur(60px) !important;
+    width: 350px !important;
+    height: 350px !important;
+  }
+  .gradient-bg .blob-3 {
+    filter: blur(60px) !important;
+    width: 380px !important;
+    height: 380px !important;
+  }
 }
 
 .gradient-bg .blob-1 {

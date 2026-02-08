@@ -34,9 +34,11 @@
           const ctx = canvas.getContext('2d');
 
           let w, h, particles;
-          const COUNT = 70;
-          const CONN = 120;
+          const isMobile = window.innerWidth < 640;
+          const COUNT = isMobile ? 25 : 70;
+          const CONN = isMobile ? 80 : 120;
           const SPEED = 0.2;
+          let frame = 0;
 
           function isDark() {
             return document.documentElement.classList.contains('dark');
@@ -62,6 +64,8 @@
           }
 
           function draw() {
+            frame++;
+            if (isMobile && frame % 2 !== 0) { requestAnimationFrame(draw); return; }
             ctx.clearRect(0, 0, w, h);
             const dark = isDark();
             const col = dark ? '255,255,255' : '120,113,108';
