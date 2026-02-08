@@ -16,8 +16,93 @@
     <link rel="stylesheet" href="src/styles/style.css">
   </head>
   <body>
+    <div class="gradient-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      (() => {
+        function initFooterNetwork() {
+          const footer = document.getElementById('Contact');
+          if (!footer) return requestAnimationFrame(initFooterNetwork);
+
+          const canvas = document.createElement('canvas');
+          footer.appendChild(canvas);
+          const ctx = canvas.getContext('2d');
+
+          let w, h, particles;
+          const COUNT = 70;
+          const CONN = 120;
+          const SPEED = 0.2;
+
+          function isDark() {
+            return document.documentElement.classList.contains('dark');
+          }
+
+          function resize() {
+            const rect = footer.getBoundingClientRect();
+            w = canvas.width = rect.width;
+            h = canvas.height = rect.height;
+          }
+
+          function create() {
+            particles = [];
+            for (let i = 0; i < COUNT; i++) {
+              particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * SPEED,
+                vy: (Math.random() - 0.5) * SPEED,
+                r: Math.random() * 1.2 + 0.6
+              });
+            }
+          }
+
+          function draw() {
+            ctx.clearRect(0, 0, w, h);
+            const dark = isDark();
+            const col = dark ? '255,255,255' : '120,113,108';
+            const dotA = dark ? 0.35 : 0.25;
+            const lineA = dark ? 0.1 : 0.06;
+
+            for (const p of particles) {
+              p.x += p.vx; p.y += p.vy;
+              if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+              if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+              const a = particles[i];
+              for (let j = i + 1; j < particles.length; j++) {
+                const b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < CONN) {
+                  ctx.beginPath();
+                  ctx.moveTo(a.x, a.y);
+                  ctx.lineTo(b.x, b.y);
+                  ctx.strokeStyle = 'rgba(' + col + ',' + (lineA * (1 - d/CONN)) + ')';
+                  ctx.lineWidth = 0.5;
+                  ctx.stroke();
+                }
+              }
+              ctx.beginPath();
+              ctx.arc(a.x, a.y, a.r, 0, Math.PI*2);
+              ctx.fillStyle = 'rgba(' + col + ',' + dotA + ')';
+              ctx.fill();
+            }
+            requestAnimationFrame(draw);
+          }
+
+          resize(); create(); draw();
+          window.addEventListener('resize', () => { resize(); create(); });
+        }
+        setTimeout(initFooterNetwork, 500);
+      })();
+    </script>
   </body>
   
 </html>

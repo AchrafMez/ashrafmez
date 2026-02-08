@@ -29,8 +29,8 @@ function MMarqueeWrapper() {
 
   return (
     <div className="relative max-w-5xl w-11/12 mx-auto overflow-hidden py-6 sm:py-8 md:py-10 lg:py-12">
-    <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-r from-white dark:from-stone-900 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-l from-white dark:from-stone-900 to-transparent z-10 pointer-events-none" />
+    <div className="marquee-fade-left absolute left-0 top-0 bottom-0 w-20 sm:w-28 md:w-36 z-10 pointer-events-none" />
+    <div className="marquee-fade-right absolute right-0 top-0 bottom-0 w-20 sm:w-28 md:w-36 z-10 pointer-events-none" />
 
       <div
         className="whitespace-nowrap"
