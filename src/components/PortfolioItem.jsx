@@ -22,7 +22,7 @@ function PortfolioItem({ title, imgUrl, stack, details, link }) {
                   alt={title}
                   className="w-full h-40 sm:h-44 object-cover transition-all duration-700 group-hover:scale-105"
                />
-               <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-stone-800 via-transparent to-transparent opacity-40" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black dark:from-stone-800 via-transparent to-transparent opacity-40" />
             </div>
 
             <div className="relative p-4 sm:p-5">
