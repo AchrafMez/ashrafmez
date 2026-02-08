@@ -3,7 +3,7 @@ export default [
       title: 'Inception',
       imgUrl: './assets/inception.jpg',
       stack: ['Docker', 'Shell scripting', ],
-      details: "lorem ippsum dolor w zaba w chta saba",
+      details: "System administration and service virtualization with Docker",
       link: 'https://github.com/AchrafMez/inception',
    },
    {

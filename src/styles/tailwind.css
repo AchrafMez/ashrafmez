@@ -4,7 +4,11 @@
 
 html {
     scroll-behavior: smooth;
-  scroll-padding-top: 75px;
-  }
+    scroll-padding-top: 75px;
+}
+
+::selection {
+    background-color: rgba(120, 113, 108, 0.25);
+}
   
   

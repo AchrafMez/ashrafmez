@@ -5,6 +5,6 @@
 @layer base {
   html,
   body {
-    background-color: #000;
+    @apply bg-white dark:bg-stone-900;
   }
 }
