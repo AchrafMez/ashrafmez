@@ -13,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BJjAmwio.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CQTFyIxz.css">
+    <script type="module" crossorigin src="/assets/index-pzv0UBm_.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DcpVpXK0.css">
   </head>
   <body>
     <div class="gradient-bg">
@@ -34,9 +34,11 @@
           const ctx = canvas.getContext('2d');
 
           let w, h, particles;
-          const COUNT = 70;
-          const CONN = 120;
+          const isMobile = window.innerWidth < 640;
+          const COUNT = isMobile ? 25 : 70;
+          const CONN = isMobile ? 80 : 120;
           const SPEED = 0.2;
+          let frame = 0;
 
           function isDark() {
             return document.documentElement.classList.contains('dark');
@@ -62,6 +64,8 @@
           }
 
           function draw() {
+            frame++;
+            if (isMobile && frame % 2 !== 0) { requestAnimationFrame(draw); return; }
             ctx.clearRect(0, 0, w, h);
             const dark = isDark();
             const col = dark ? '255,255,255' : '120,113,108';
