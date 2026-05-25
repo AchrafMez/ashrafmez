@@ -76,7 +76,7 @@ function Intro() {
             href="#Projects"
             className="flex flex-col items-center"
           >
-            <motion.svg
+            {/* <motion.svg
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               className="w-6 h-6 text-stone-400 dark:text-stone-500"
@@ -85,7 +85,7 @@ function Intro() {
               viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-            </motion.svg>
+            </motion.svg> */}
           </a>
         </div>
       </motion.div>

@@ -2,7 +2,12 @@ import { useState } from "react";
 
 function Navbar({ theme, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navLinks = ["About", "Journey", "Contact"];
+  // const navLinks = ["About", "Journey", "Contact"];
+  const navLinks = [
+    { name: "Github", url: "https://github.com/Achrafmez" },
+    { name: "Linkedin", url: "https://www.linkedin.com/in/ashrafmeziouni" },
+    { name: "Resume", url: "../../assets/Meziouni_Achraf.pdf" }
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-stone-900/80 border-b border-stone-200/30 dark:border-stone-700/30">
@@ -15,17 +20,32 @@ function Navbar({ theme, toggleTheme }) {
           >
             AM<span className="text-stone-400">.</span>
           </button>
-          <a href="#About" className="hidden sm:block text-base font-bold tracking-tight text-stone-900 dark:text-white">
+          <a href="/#About" className="hidden sm:block text-base font-bold tracking-tight text-stone-900 dark:text-white">
             AM<span className="text-stone-400">.</span>
           </a>
           <div className="hidden sm:flex gap-8 text-sm text-stone-700 dark:text-stone-300 font-medium">
+            {/*
             {navLinks.map((item) => (
               <a
                 key={item}
-                href={`#${item}`}
+                href={`/#${item}`}
                 className="relative group py-1"
               >
                 {item}
+                <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-stone-900 dark:bg-white transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
+            */}
+
+            {navLinks.map((item) => (
+              <a
+                key={item.name}
+                href={item.url}
+                target={item.name !== "About" ? "_blank" : "_self"}
+                rel="noreferrer noopener"
+                className="relative group py-1"
+              >
+                {item.name}
                 <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-stone-900 dark:bg-white transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
@@ -72,14 +92,29 @@ function Navbar({ theme, toggleTheme }) {
       {menuOpen && (
         <div className="sm:hidden bg-white/90 dark:bg-stone-900/90 border-b border-stone-200/30 dark:border-stone-700/30">
           <div className="max-w-5xl w-11/12 mx-auto py-3 flex flex-col gap-3">
+            {/*
             {navLinks.map((item) => (
               <a
                 key={item}
-                href={`#${item}`}
+                href={`/#${item}`}
                 onClick={() => setMenuOpen(false)}
                 className="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors py-1"
               >
                 {item}
+              </a>
+            ))}
+            */}
+
+            {navLinks.map((item) => (
+              <a
+                key={item.name}
+                href={item.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors py-1"
+              >
+                {item.name}
               </a>
             ))}
           </div>

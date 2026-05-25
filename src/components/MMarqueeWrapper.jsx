@@ -38,7 +38,7 @@ function MMarqueeWrapper() {
         onMouseLeave={() => setIsHovered(false)}
       >
         <motion.div
-          className="flex items-center gap-6 md:gap-10 w-max will-change-transform"
+          className="flex items-center w-max will-change-transform"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: isHovered ? 40 : 20,
@@ -46,10 +46,13 @@ function MMarqueeWrapper() {
             ease: "linear",
           }}
         >
-          {[...tech, ...tech, ...tech].map((item, i) => (
+          {/* We duplicate the array 2 times exactly (so length is 2x), 
+              this way -50% shifts exactly the width of one original tech array, 
+              causing it to perfectly bridge head-to-tail without snapping. */}
+          {[...tech, ...tech].map((item, i) => (
             <span
               key={i}
-              className="text-3xl md:text-4xl lg:text-5xl transition-colors duration-300"
+              className="text-3xl md:text-4xl lg:text-5xl transition-colors duration-300 pr-6 md:pr-10"
               style={{ color: isHovered ? item.color : "currentColor" }}
             >
               {item.icon}
