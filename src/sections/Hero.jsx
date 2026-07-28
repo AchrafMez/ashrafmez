@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import KineticName from "../components/KineticName";
 import LocalTime from "../components/LocalTime";
 import TechMarquee from "../components/TechMarquee";
@@ -53,12 +54,14 @@ export default function Hero() {
           className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mb-14"
         >
           <span className="eyebrow flex items-center gap-2.5">
+            {/* Availability dot — uncomment to bring the live green pip back.
             <span className="relative flex h-1.5 w-1.5">
               {!reduced && site.available && (
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
               )}
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
             </span>
+            */}
             {site.availabilityNote}
           </span>
           <span className="eyebrow hidden sm:inline">{site.location}</span>
@@ -70,16 +73,24 @@ export default function Hero() {
           <KineticName lines={["Achraf", "Meziouni"]} className="block" />
         </h1>
 
-        {/* Positioning statement — the one paragraph a client actually reads */}
+        {/* Positioning statement — the one paragraph a client actually reads.
+            The rule under the name is off: add `border-t border-line` back to
+            the class list below to restore it. `pt-8` stays either way, so the
+            spacing does not shift. */}
         <motion.div
           {...fade(0.9)}
-          className="mt-10 grid gap-8 border-t border-line pt-8 sm:mt-14 md:grid-cols-12 md:gap-12"
+          className="mt-10 grid gap-8 pt-8 sm:mt-14 md:grid-cols-12 md:gap-12"
         >
+          {/* Section index — uncomment to restore. The column below is pinned
+              with col-start-4 so the layout is identical either way.
           <p className="eyebrow md:col-span-3">
             <span className="text-faint">01</span> — Introduction
           </p>
+          */}
 
-          <div className="md:col-span-9 lg:col-span-7">
+          {/* col-start is repeated at lg because `lg:col-span-7` resets
+              grid-column-start, and it wins on order over `md:col-start-4`. */}
+          <div className="md:col-span-9 md:col-start-4 lg:col-span-7 lg:col-start-4">
             <p className="text-balance text-xl font-light leading-[1.45] text-fg sm:text-2xl md:text-[1.75rem]">
               I&apos;m a software engineer at{" "}
               <a
@@ -104,20 +115,20 @@ export default function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-              <a
-                href="#work"
+              <Link
+                to="/work"
                 data-cursor="link"
                 className="link-underline font-mono text-xs uppercase tracking-[0.2em] text-fg"
               >
                 Selected work
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                to="/contact"
                 data-cursor="link"
                 className="link-underline font-mono text-xs uppercase tracking-[0.2em] text-muted"
               >
                 Start a project
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>

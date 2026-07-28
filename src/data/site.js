@@ -15,8 +15,8 @@ export const socials = [
   { name: "GitHub", handle: "@AchrafMez", url: "https://github.com/AchrafMez" },
   {
     name: "LinkedIn",
-    handle: "@ashrafmeziouni",
-    url: "https://www.linkedin.com/in/ashrafmeziouni",
+    handle: "@achrafmeziouni",
+    url: "https://www.linkedin.com/in/achrafmeziouni",
   },
   {
     name: "Discord",

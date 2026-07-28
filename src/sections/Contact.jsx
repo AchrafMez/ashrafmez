@@ -47,11 +47,13 @@ export default function Contact() {
       <ParticleField />
 
       <div className="shell relative">
+        {/* Section index — uncomment to restore.
         <Reveal>
           <p className="eyebrow">
             <span className="text-faint">05</span> — Contact
           </p>
         </Reveal>
+        */}
 
         <Reveal delay={0.05}>
           <h2 className="mt-8 text-balance font-display text-[clamp(2.5rem,9vw,7.5rem)] font-semibold leading-[0.9] tracking-tightest">

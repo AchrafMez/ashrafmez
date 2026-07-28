@@ -41,21 +41,26 @@ function ProjectPage() {
 }
 
 /**
- * React Router restores the path but not the fragment, so a link like `/#work`
- * arriving from another route lands at the top. This resolves the target once
- * the new route has actually painted.
+ * The home sections are addressed as real paths (`/work`) rather than fragments
+ * (`/#work`) — same destination, cleaner URL. Every one of these paths renders
+ * <Home/> via the catch-all route, so all that is left is to scroll to the
+ * matching section once the route has actually painted.
  */
-function HashScroll() {
-  const { pathname, hash } = useLocation();
+const SECTION_PATHS = ["work", "services", "journey", "contact"];
+
+function SectionScroll() {
+  // `key` changes on every navigation, so re-clicking the current section
+  // scrolls again instead of doing nothing.
+  const { pathname, key } = useLocation();
 
   useEffect(() => {
-    if (!hash) return;
-    const id = requestAnimationFrame(() => {
-      const target = document.querySelector(hash);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    const id = pathname.replace(/^\/|\/$/g, "");
+    if (!SECTION_PATHS.includes(id)) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-    return () => cancelAnimationFrame(id);
-  }, [pathname, hash]);
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, key]);
 
   return null;
 }
@@ -65,7 +70,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <HashScroll />
+      <SectionScroll />
 
       {/* Ambient layers — behind and above everything, never in the flow */}
       <FieldCanvas />
@@ -79,6 +84,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:id" element={<ProjectPage />} />
+          {/* Also catches the section paths in SECTION_PATHS, and anything
+              unrecognised, which lands on the home page rather than a dead end. */}
           <Route path="*" element={<Home />} />
         </Routes>
       </div>

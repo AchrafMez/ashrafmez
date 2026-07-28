@@ -81,7 +81,7 @@ export default function ProjectDetail() {
           <div className="shell">
             <Reveal>
               <Link
-                to="/#work"
+                to="/work"
                 data-cursor="link"
                 className="group inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted transition-colors hover:text-fg"
               >

@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { site } from "../data/site";
 
 const SECTIONS = [
-  { label: "Work", href: "/#work" },
-  { label: "Services", href: "/#services" },
-  { label: "Journey", href: "/#journey" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/services" },
+  { label: "Journey", href: "/journey" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const EXTERNAL = [
@@ -92,12 +92,12 @@ export default function Navbar({ theme, toggleTheme }) {
 
   return (
     <>
-      <a
-        href="#work"
+      <Link
+        to="/work"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-fg focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-bg"
       >
         Skip to content
-      </a>
+      </Link>
 
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -119,14 +119,16 @@ export default function Navbar({ theme, toggleTheme }) {
 
           <div className="hidden items-center gap-8 md:flex">
             {SECTIONS.map((item) => (
-              <a
+              /* Link, not <a> — a plain href to a real path would reload the app
+                 before the scroll could happen. */
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 data-cursor="link"
                 className="link-underline font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
 
             <span className="h-4 w-px bg-line" aria-hidden="true" />
@@ -178,9 +180,9 @@ export default function Navbar({ theme, toggleTheme }) {
       >
         <div className="shell flex h-full flex-col justify-center gap-2 pb-20">
           {SECTIONS.map((item, i) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
+              to={item.href}
               onClick={() => setOpen(false)}
               className="border-b border-line py-4 font-display text-4xl font-semibold tracking-tightest transition-all duration-500"
               style={{
@@ -190,7 +192,7 @@ export default function Navbar({ theme, toggleTheme }) {
               }}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
 
           <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
