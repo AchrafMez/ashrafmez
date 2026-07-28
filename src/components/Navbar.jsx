@@ -1,127 +1,213 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { site } from "../data/site";
 
-function Navbar({ theme, toggleTheme }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  // const navLinks = ["About", "Journey", "Contact"];
-  const navLinks = [
-    { name: "Github", url: "https://github.com/Achrafmez" },
-    { name: "Linkedin", url: "https://www.linkedin.com/in/ashrafmeziouni" },
-    { name: "Resume", url: "../../assets/Meziouni_Achraf.pdf" }
-  ];
+const SECTIONS = [
+  { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
+  { label: "Journey", href: "/#journey" },
+  { label: "Contact", href: "/#contact" },
+];
 
+const EXTERNAL = [
+  { label: "GitHub", href: "https://github.com/AchrafMez" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ashrafmeziouni" },
+  { label: "Résumé", href: site.resume },
+];
+
+function ThemeToggle({ theme, toggleTheme }) {
+  const dark = theme === "dark";
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-stone-900/80 border-b border-stone-200/30 dark:border-stone-700/30">
-      <div className="max-w-5xl w-11/12 mx-auto flex justify-between items-center py-2.5">
-        <div className="flex items-center gap-8">
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="sm:hidden text-base font-bold tracking-tight text-stone-900 dark:text-white"
-          >
-            AM<span className="text-stone-400">.</span>
-          </button>
-          <a href="/#About" className="hidden sm:block text-base font-bold tracking-tight text-stone-900 dark:text-white">
-            AM<span className="text-stone-400">.</span>
-          </a>
-          <div className="hidden sm:flex gap-8 text-sm text-stone-700 dark:text-stone-300 font-medium">
-            {/*
-            {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`/#${item}`}
-                className="relative group py-1"
-              >
-                {item}
-                <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-stone-900 dark:bg-white transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-            */}
-
-            {navLinks.map((item) => (
-              <a
-                key={item.name}
-                href={item.url}
-                target={item.name !== "About" ? "_blank" : "_self"}
-                rel="noreferrer noopener"
-                className="relative group py-1"
-              >
-                {item.name}
-                <span className="absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-stone-900 dark:bg-white transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="relative w-14 h-7 rounded-full bg-stone-200 dark:bg-stone-700 transition-colors duration-150 ease-out focus:outline-none"
-          aria-label="Toggle theme"
-          style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+    <button
+      type="button"
+      onClick={toggleTheme}
+      data-cursor="link"
+      aria-label={`Switch to ${dark ? "light" : "dark"} theme`}
+      aria-pressed={dark}
+      className="relative h-7 w-[3.25rem] rounded-full border border-line bg-surface transition-colors duration-300"
+      style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+    >
+      <span
+        className="absolute top-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-fg transition-transform duration-500 ease-out"
+        style={{
+          left: "3px",
+          transform: `translate3d(${dark ? "1.5rem" : "0"}, -50%, 0)`,
+        }}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="rgb(var(--bg))"
+          strokeWidth="2"
+          className="h-3 w-3"
+          aria-hidden="true"
         >
-          <span
-            className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white dark:bg-stone-900 shadow-sm flex items-center justify-center transition-transform duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform ${
-              theme === "dark" ? "translate-x-7" : "translate-x-0"
-            }`}
-            style={{ transform: `translateX(${theme === "dark" ? "1.75rem" : "0"}) translateZ(0)` }}
-          >
-            <svg
-              className={`w-3.5 h-3.5 text-yellow-400 absolute transition-opacity duration-150 ${
-                theme === "dark" ? "opacity-100" : "opacity-0"
-              }`}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-            </svg>
-            <svg
-              className={`w-3.5 h-3.5 text-stone-600 absolute transition-opacity duration-150 ${
-                theme === "dark" ? "opacity-0" : "opacity-100"
-              }`}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-            </svg>
-          </span>
-        </button>
-      </div>
-
-      {menuOpen && (
-        <div className="sm:hidden bg-white/90 dark:bg-stone-900/90 border-b border-stone-200/30 dark:border-stone-700/30">
-          <div className="max-w-5xl w-11/12 mx-auto py-3 flex flex-col gap-3">
-            {/*
-            {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`/#${item}`}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors py-1"
-              >
-                {item}
-              </a>
-            ))}
-            */}
-
-            {navLinks.map((item) => (
-              <a
-                key={item.name}
-                href={item.url}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors py-1"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+          {dark ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v1.5m6.364 1.136-1.06 1.06M21 12h-1.5m-1.136 6.364-1.06-1.06M12 19.5V21m-5.303-3.697-1.061 1.061M4.5 12H3m3.697-5.303-1.061-1.06M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z"
+            />
+          )}
+        </svg>
+      </span>
+    </button>
   );
 }
 
-export default Navbar;
+export default function Navbar({ theme, toggleTheme }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close the sheet whenever navigation happens.
+  useEffect(() => setOpen(false), [location.pathname, location.hash]);
+
+  // Lock the page behind the open sheet.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  return (
+    <>
+      <a
+        href="#work"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-fg focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-bg"
+      >
+        Skip to content
+      </a>
+
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "border-b border-line bg-bg/80 backdrop-blur-xl"
+            : "border-b border-transparent"
+        }`}
+      >
+        <nav className="shell flex h-16 items-center justify-between gap-6 sm:h-[4.5rem]">
+          <Link
+            to="/"
+            data-cursor="link"
+            className="font-display text-lg font-semibold tracking-tightest"
+            aria-label={`${site.name} — home`}
+          >
+            {site.initials}
+            <span className="text-faint">.</span>
+          </Link>
+
+          <div className="hidden items-center gap-8 md:flex">
+            {SECTIONS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                data-cursor="link"
+                className="link-underline font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg"
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <span className="h-4 w-px bg-line" aria-hidden="true" />
+
+            {EXTERNAL.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                data-cursor="link"
+                className="link-underline font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4">
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] md:hidden"
+            >
+              <span
+                className="block h-px w-5 bg-fg transition-transform duration-300"
+                style={{ transform: open ? "translateY(3px) rotate(45deg)" : "none" }}
+              />
+              <span
+                className="block h-px w-5 bg-fg transition-transform duration-300"
+                style={{ transform: open ? "translateY(-3px) rotate(-45deg)" : "none" }}
+              />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile sheet */}
+      <div
+        id="mobile-menu"
+        className={`fixed inset-0 z-40 bg-bg transition-opacity duration-300 md:hidden ${
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div className="shell flex h-full flex-col justify-center gap-2 pb-20">
+          {SECTIONS.map((item, i) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="border-b border-line py-4 font-display text-4xl font-semibold tracking-tightest transition-all duration-500"
+              style={{
+                transform: open ? "translateY(0)" : "translateY(14px)",
+                opacity: open ? 1 : 0,
+                transitionDelay: `${80 + i * 45}ms`,
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+
+          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+            {EXTERNAL.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

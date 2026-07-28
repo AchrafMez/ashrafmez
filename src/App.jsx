@@ -1,60 +1,87 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer";
-import Intro from "./components/Intro";
-import Portfolio from "./components/Portfolio";
-import Journey from "./components/Journey";
-import Navbar from "./components/Navbar";
-import ProjectDetails from "./components/ProjectDetails";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
-const getInitTheme = () => {
-  return "dark"; // Defaulting to dark as per typical dev portfolio or getting from storage
-};
+import Navbar from "./components/Navbar";
+import Cursor from "./components/Cursor";
+import FieldCanvas from "./components/FieldCanvas";
+import ScrollProgress from "./components/ScrollProgress";
+
+import Hero from "./sections/Hero";
+import Work from "./sections/Work";
+import Services from "./sections/Services";
+import Journey from "./sections/Journey";
+import Contact from "./sections/Contact";
+import ProjectDetail from "./pages/ProjectDetail";
+
+import useTheme from "./hooks/useTheme";
 
 function Home() {
+  useEffect(() => {
+    document.title = "Achraf Meziouni — Software Engineer";
+  }, []);
+
   return (
-    <>
-      <Intro />
-      {/* <section className="py-16 sm:py-20">
-        <Portfolio />
-      </section>
-      <section className="py-16 sm:py-20">
-        <Journey />
-      </section> */}
-    </>
+    <main>
+      <Hero />
+      <Work />
+      <Services />
+      <Journey />
+      <Contact />
+    </main>
   );
 }
 
-function App() {
-  const [theme, setTheme] = useState(getInitTheme);
+function ProjectPage() {
+  return (
+    <main>
+      <ProjectDetail />
+      <Contact />
+    </main>
+  );
+}
+
+/**
+ * React Router restores the path but not the fragment, so a link like `/#work`
+ * arriving from another route lands at the top. This resolves the target once
+ * the new route has actually painted.
+ */
+function HashScroll() {
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+    if (!hash) return;
+    const id = requestAnimationFrame(() => {
+      const target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [pathname, hash]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
-  return (
-    <Router>
-      <Navbar
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
-
-      <div className="bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-300 min-h-screen font-inter overflow-x-hidden">
-        <div className="max-w-5xl w-11/12 mx-auto">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/projects/:id" element={<ProjectDetails />} /> */}
-          </Routes>
-          {/* <Footer /> */}
-        </div>
-      </div>
-    </Router>
-  );
+  return null;
 }
 
-export default App;
+export default function App() {
+  const { theme, toggleTheme } = useTheme();
 
+  return (
+    <BrowserRouter>
+      <HashScroll />
+
+      {/* Ambient layers — behind and above everything, never in the flow */}
+      <FieldCanvas />
+      <div className="grain" aria-hidden="true" />
+      <ScrollProgress />
+      <Cursor />
+
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
+
+      <div className="relative z-10 min-h-screen">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects/:id" element={<ProjectPage />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}

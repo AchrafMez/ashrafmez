@@ -1,37 +1,48 @@
 export default [
   {
-    year: '2025',
-    title: '1337 Software Engineering ',
-    duration: '2023 — Today',
+    year: "2023",
+    duration: "2023 — Present",
+    title: "Software Engineering",
+    place: "1337 — 42 Network",
+    current: true,
     details:
-          'Core computer science: algorithms, data structures, operating systems. Systems programming in C/C++, Docker containerization, database design, network protocols, shell scripting. Project-based peer learning with focus on problem-solving and collaborative development.',
-   },
-  {
-    year: '2023',
-    title: 'Founder & Developer — Branshex E-Commerce Platform',
-    duration: '7 Months',
-    details:
-      'Built and launched branshex.com, a fully operational online shipping and fulfillment platform using Shopify. Managed product design, front-end customization, store automation, and integration of global payment through stripe.',
+      "Core computer science: algorithms, data structures, and operating systems. Systems programming in C and C++, containerisation, database design, network protocols, and shell scripting — all through project-based peer learning with no lectures and no safety net.",
+    tags: ["C / C++", "Unix", "Networking", "Docker"],
   },
   {
-    year: '2022',
-    title: 'Full-Stack Web Development Training',
-    duration: '7 Months',
+    year: "2023",
+    duration: "7 months",
+    title: "Developer — Branshex",
+    place: "branshex.com",
     details:
-      'Completed a full-stack formation covering HTML, CSS, JavaScript, WordPress, and responsive web design. Built dynamic websites.',
+      "Built and launched an operational e-commerce and fulfilment platform. Owned it end to end: product design, storefront customisation, store automation, and global payment integration through Stripe.",
+    tags: ["Shopify", "Stripe", "E-commerce"],
   },
   {
-    year: '2021',
-    title: 'Full-Stack Development Certificate — Coursera',
-    duration: '6 Months',
+    year: "2022",
+    duration: "7 months",
+    title: "Full-Stack Web Development Training",
+    place: "Professional programme",
     details:
-      'Studied front-end and back-end development fundamentals through Coursera. Covered version control a project-based learning.',
+      "A full-stack programme covering HTML, CSS, JavaScript, WordPress, and responsive design, applied by building dynamic sites from scratch.",
+    tags: ["JavaScript", "CSS", "WordPress"],
   },
   {
-    year: '2021',
-    title: 'English Studies at USMBA',
-    duration: '2021 — 2023',
+    year: "2021",
+    duration: "6 months",
+    title: "Full-Stack Development Certificate",
+    place: "Coursera",
     details:
-      'Studied English language, communication, and academic writing. Built strong communication and research skills used today in documentation and teamwork.',
+      "Front-end and back-end fundamentals with an emphasis on version control and project-based learning.",
+    tags: ["Git", "Web fundamentals"],
   },
-]
+  {
+    year: "2021",
+    duration: "2021 — 2023",
+    title: "English Studies",
+    place: "USMBA",
+    details:
+      "Language, communication, and academic writing. The reason my documentation and client communication read clearly — an underrated engineering skill.",
+    tags: ["Writing", "Communication"],
+  },
+];

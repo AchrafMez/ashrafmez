@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Achraf Meziouni</title>
+    <script>
+      // GitHub Pages serves this for any unknown path. Stash the requested
+      // route and bounce to the SPA entry, which restores it from sessionStorage.
+      sessionStorage.setItem(
+        "spa:redirect",
+        location.pathname + location.search + location.hash
+      );
+      location.replace("/");
+    </script>
+  </head>
+  <body></body>
+</html>

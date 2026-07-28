@@ -1,0 +1,393 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   Design tokens
+   Monochrome by design. One signal colour, used
+   only for "alive" micro-states (status, focus).
+   ───────────────────────────────────────────── */
+@layer base {
+  :root {
+    --bg: 250 249 247;
+    --surface: 255 255 255;
+    --fg: 12 10 9;
+    --muted: 120 113 108;
+    --faint: 168 162 158;
+    --line: 226 223 219;
+    --signal: 22 163 74;
+
+    /* Project-banner scrim strength. Light posters are pale to begin with, so
+       a white wash as heavy as the dark theme's would erase them outright. */
+    --scrim-mid: 0.34;
+    --scrim-left: 0.62;
+
+    color-scheme: light;
+  }
+
+  html.dark {
+    --bg: 10 10 10;
+    --surface: 23 23 22;
+    --fg: 250 250 249;
+    --muted: 138 133 128;
+    --faint: 87 83 78;
+    --line: 38 38 36;
+    --signal: 74 222 128;
+
+    --scrim-mid: 0.45;
+    --scrim-left: 0.8;
+
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    overflow-x: hidden;
+    /* Prevent the OS light/dark flash on theme swap */
+    transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ::selection {
+    @apply bg-fg text-bg;
+  }
+
+  /* Visible only for keyboard users — never steals the mouse aesthetic */
+  :focus-visible {
+    outline: 2px solid rgb(var(--fg));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Optical sizing for the big display type */
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Shared page gutter — one definition, used everywhere */
+  .shell {
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-12;
+  }
+
+  .shell-narrow {
+    @apply mx-auto w-full max-w-4xl px-5 sm:px-8;
+  }
+
+  /* Monospace eyebrow label used to tag every section */
+  .eyebrow {
+    @apply font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-muted;
+  }
+
+  .rule {
+    @apply h-px w-full bg-line;
+  }
+
+  /* ── Project banner ──
+     The bottom ramp lands the overlaid title on near-solid page colour; the
+     left ramp clears a quiet field for it, since several posters are landing
+     pages carrying headlines of their own. */
+  .banner-scrim {
+    @apply pointer-events-none absolute inset-0;
+    background:
+      linear-gradient(
+        to top,
+        rgb(var(--bg)) 0%,
+        rgb(var(--bg) / 0.95) 24%,
+        rgb(var(--bg) / var(--scrim-mid)) 56%,
+        rgb(var(--bg) / 0.06) 88%,
+        rgb(var(--bg) / 0) 100%
+      ),
+      linear-gradient(
+        to right,
+        rgb(var(--bg) / var(--scrim-left)) 0%,
+        rgb(var(--bg) / calc(var(--scrim-left) * 0.62)) 34%,
+        rgb(var(--bg) / 0.1) 64%,
+        rgb(var(--bg) / 0) 82%
+      );
+  }
+
+  /* Separate ramp so the fixed nav stays legible over a bright poster. */
+  .banner-topfade {
+    @apply pointer-events-none absolute inset-x-0 top-0 h-36;
+    background: linear-gradient(to bottom, rgb(var(--bg) / 0.8), rgb(var(--bg) / 0));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hides the native cursor only where we render our own */
+  .cursor-none-fine {
+    cursor: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Film grain — sits above everything, costs nothing.
+   Gives flat monochrome surfaces a physical texture.
+   ───────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: -150%;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: transform;
+  animation: grainShift 8s steps(6) infinite;
+}
+
+html.dark .grain {
+  opacity: 0.055;
+}
+
+@keyframes grainShift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3%, 2%);
+  }
+  40% {
+    transform: translate(2%, -3%);
+  }
+  60% {
+    transform: translate(-2%, -2%);
+  }
+  80% {
+    transform: translate(3%, 3%);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Custom cursor
+   ───────────────────────────────────────────── */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: rgb(var(--fg));
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1px solid rgb(var(--fg) / 0.35);
+  display: grid;
+  place-items: center;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-ring[data-state='link'] {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: rgb(var(--fg) / 0.06);
+  border-color: rgb(var(--fg) / 0.5);
+}
+
+.cursor-ring[data-state='view'] {
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  background: rgb(var(--fg));
+  border-color: rgb(var(--fg));
+}
+
+.cursor-label {
+  @apply font-mono text-[9px] uppercase tracking-[0.2em];
+  color: rgb(var(--bg));
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-ring[data-state='view'] .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─────────────────────────────────────────────
+   Kinetic type: per-character mask reveal
+   ───────────────────────────────────────────── */
+.char-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.char {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────
+   Work index: swap-on-hover title
+   ───────────────────────────────────────────── */
+.swap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.swap > span {
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.swap > span:last-child {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(0, 105%, 0);
+}
+
+.group:hover .swap > span:first-child,
+.swap[data-active='true'] > span:first-child {
+  transform: translate3d(0, -105%, 0);
+}
+
+.group:hover .swap > span:last-child,
+.swap[data-active='true'] > span:last-child {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Underline that draws from the left, retracts to the right */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Marquee mask so tech icons dissolve at both edges */
+.edge-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 45s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Scrollbar — thin and monochrome, matches the theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border: 3px solid rgb(var(--bg));
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--faint));
+}
+
+/* ─────────────────────────────────────────────
+   Accessibility: honour reduced-motion everywhere.
+   Everything still reads correctly with zero motion.
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grain {
+    animation: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+}

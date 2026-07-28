@@ -1,112 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script> (() => { const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.classList.toggle('dark', prefersDark);})();</script>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/philosopher.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Achraf Meziouni — Software Engineer Student at 1337. Systems programming, algorithms, and clean solutions." />
-    <meta property="og:title" content="Achraf Meziouni" />
-    <meta property="og:description" content="Software Engineer Student at 1337. Building clean, efficient, and genuinely useful solutions." />
-    <meta property="og:type" content="website" />
-    <title>Achraf Meziouni</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/styles/style.css">
-  </head>
-  <body>
-    <div class="gradient-bg">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Resolve theme before first paint so there is never a flash -->
     <script>
       (() => {
-        function initFooterNetwork() {
-          const footer = document.getElementById('Contact');
-          if (!footer) return requestAnimationFrame(initFooterNetwork);
-
-          const canvas = document.createElement('canvas');
-          footer.appendChild(canvas);
-          const ctx = canvas.getContext('2d');
-
-          let w, h, particles;
-          const isMobile = window.innerWidth < 640;
-          const COUNT = isMobile ? 25 : 70;
-          const CONN = isMobile ? 80 : 120;
-          const SPEED = 0.2;
-          let frame = 0;
-
-          function isDark() {
-            return document.documentElement.classList.contains('dark');
-          }
-
-          function resize() {
-            const rect = footer.getBoundingClientRect();
-            w = canvas.width = rect.width;
-            h = canvas.height = rect.height;
-          }
-
-          function create() {
-            particles = [];
-            for (let i = 0; i < COUNT; i++) {
-              particles.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                vx: (Math.random() - 0.5) * SPEED,
-                vy: (Math.random() - 0.5) * SPEED,
-                r: Math.random() * 1.2 + 0.6
-              });
-            }
-          }
-
-          function draw() {
-            frame++;
-            if (isMobile && frame % 2 !== 0) { requestAnimationFrame(draw); return; }
-            ctx.clearRect(0, 0, w, h);
-            const dark = isDark();
-            const col = dark ? '255,255,255' : '120,113,108';
-            const dotA = dark ? 0.35 : 0.25;
-            const lineA = dark ? 0.1 : 0.06;
-
-            for (const p of particles) {
-              p.x += p.vx; p.y += p.vy;
-              if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-              if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-            }
-
-            for (let i = 0; i < particles.length; i++) {
-              const a = particles[i];
-              for (let j = i + 1; j < particles.length; j++) {
-                const b = particles[j];
-                const dx = a.x - b.x, dy = a.y - b.y;
-                const d = Math.sqrt(dx*dx + dy*dy);
-                if (d < CONN) {
-                  ctx.beginPath();
-                  ctx.moveTo(a.x, a.y);
-                  ctx.lineTo(b.x, b.y);
-                  ctx.strokeStyle = 'rgba(' + col + ',' + (lineA * (1 - d/CONN)) + ')';
-                  ctx.lineWidth = 0.5;
-                  ctx.stroke();
-                }
-              }
-              ctx.beginPath();
-              ctx.arc(a.x, a.y, a.r, 0, Math.PI*2);
-              ctx.fillStyle = 'rgba(' + col + ',' + dotA + ')';
-              ctx.fill();
-            }
-            requestAnimationFrame(draw);
-          }
-
-          resize(); create(); draw();
-          window.addEventListener('resize', () => { resize(); create(); });
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.backgroundColor = dark ? "#0a0a0a" : "#faf9f7";
+        } catch (e) {
+          document.documentElement.classList.add("dark");
         }
-        setTimeout(initFooterNetwork, 500);
       })();
     </script>
+
+    <!-- Restore the deep link stashed by the 404 fallback (GitHub Pages SPA) -->
+    <script>
+      (() => {
+        try {
+          const redirect = sessionStorage.getItem("spa:redirect");
+          if (redirect) {
+            sessionStorage.removeItem("spa:redirect");
+            history.replaceState(null, "", redirect);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <title>Achraf Meziouni — Software Engineer</title>
+    <meta
+      name="description"
+      content="Achraf Meziouni — software engineer at 1337 (42 Network). Systems software in C/C++, full-stack products with React, Node and Docker. Available for freelance work."
+    />
+    <meta name="author" content="Achraf Meziouni" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+    <link rel="canonical" href="https://achrafmeziouni.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Achraf Meziouni" />
+    <meta property="og:url" content="https://achrafmeziouni.dev/" />
+    <meta property="og:title" content="Achraf Meziouni — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Systems programming, distributed backends, and interfaces that feel considered."
+    />
+    <meta property="og:image" content="https://achrafmeziouni.dev/assets/leetconnect.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Achraf Meziouni — Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Systems programming, distributed backends, and interfaces that feel considered."
+    />
+    <meta name="twitter:image" content="https://achrafmeziouni.dev/assets/leetconnect.webp" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- PNG fallback for the handful of clients that ignore SVG favicons -->
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <!-- iOS only accepts PNG here; it also applies its own corner mask, so this
+         one is a full-bleed square rather than the rounded plate. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Achraf Meziouni",
+        "url": "https://achrafmeziouni.dev",
+        "jobTitle": "Software Engineer",
+        "email": "mailto:ashrafmeziouni@gmail.com",
+        "alumniOf": { "@type": "Organization", "name": "1337 — 42 Network" },
+        "knowsAbout": ["C", "C++", "React", "Node.js", "PostgreSQL", "Docker", "Systems Programming"],
+        "sameAs": [
+          "https://github.com/AchrafMez",
+          "https://www.linkedin.com/in/ashrafmeziouni"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
-  
 </html>

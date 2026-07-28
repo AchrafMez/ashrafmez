@@ -1,0 +1,22 @@
+<!--
+  "AM." set in Inter Tight 700 at the site's own tracking (-0.055em), converted
+  to outlines. Favicons render in an isolated context with no access to the
+  page's webfonts, so a font-family here would silently fall back to whatever
+  system-ui happens to be — paths make it identical everywhere.
+
+  The plate stays dark in both colour schemes: on a light tab strip it reads as
+  a badge, on a dark one the plate recedes and the letters carry the mark.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AM">
+  <rect width="64" height="64" rx="14" fill="#0c0a09" />
+  <g fill="#faf9f7">
+    <path d="M10.98 42.87H6L13.59 20.85H19.59L27.17 42.87H22.21L16.68 25.88H16.5ZM10.68 34.21H22.46V37.84H10.68Z" />
+    <path d="M27.15 20.85H32.89L38.95 35.64H39.2L45.27 20.85H51.04V42.87H46.49V28.54H46.31L40.59 42.76H37.52L31.84 28.51H31.67V42.87H27.15Z" />
+  </g>
+  <!-- The wordmark's period, in the one signal colour the system allows. It is
+       the only thing still legible as colour at 16px. -->
+  <path
+    fill="#4ade80"
+    d="M55.4 43.15Q54.31 43.15 53.55 42.41Q52.8 41.67 52.8 40.58Q52.8 39.48 53.55 38.74Q54.31 38.01 55.4 38.01Q56.49 38.01 57.25 38.74Q58 39.48 58 40.58Q58 41.67 57.25 42.41Q56.49 43.15 55.4 43.15Z"
+  />
+</svg>
