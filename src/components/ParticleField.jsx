@@ -30,14 +30,11 @@ export default function ParticleField({ className = "" }) {
     let raf = 0;
     let onScreen = true;
 
-    const palette = { rgb: "255,255,255", dot: 0.3, line: 0.09 };
-
-    const syncPalette = () => {
-      const dark = document.documentElement.classList.contains("dark");
-      palette.rgb = dark ? "255,255,255" : "68,64,60";
-      palette.dot = dark ? 0.32 : 0.28;
-      palette.line = dark ? 0.09 : 0.08;
-    };
+    // White on black, fixed — the page has one theme. Nodes read a little
+    // stronger than the links so the constellation keeps its hierarchy.
+    const RGB = "255,255,255";
+    const DOT_ALPHA = 0.32;
+    const LINE_ALPHA = 0.09;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -61,7 +58,6 @@ export default function ParticleField({ className = "" }) {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-      const { rgb, dot, line } = palette;
 
       for (const p of nodes) {
         p.x += p.vx;
@@ -83,14 +79,14 @@ export default function ParticleField({ className = "" }) {
           const d2 = dx * dx + dy * dy;
           if (d2 < LINK * LINK) {
             const d = Math.sqrt(d2);
-            ctx.strokeStyle = `rgba(${rgb},${line * (1 - d / LINK)})`;
+            ctx.strokeStyle = `rgba(${RGB},${LINE_ALPHA * (1 - d / LINK)})`;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
           }
         }
-        ctx.fillStyle = `rgba(${rgb},${dot})`;
+        ctx.fillStyle = `rgba(${RGB},${DOT_ALPHA})`;
         ctx.beginPath();
         ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
         ctx.fill();
@@ -112,7 +108,6 @@ export default function ParticleField({ className = "" }) {
       raf = 0;
     };
 
-    syncPalette();
     resize();
     seed();
     draw();
@@ -141,22 +136,12 @@ export default function ParticleField({ className = "" }) {
       draw();
     };
 
-    const themeObserver = new MutationObserver(() => {
-      syncPalette();
-      draw();
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       pause();
       io.disconnect();
-      themeObserver.disconnect();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
     };

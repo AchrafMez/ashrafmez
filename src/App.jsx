@@ -13,8 +13,6 @@ import Journey from "./sections/Journey";
 import Contact from "./sections/Contact";
 import ProjectDetail from "./pages/ProjectDetail";
 
-import useTheme from "./hooks/useTheme";
-
 function Home() {
   useEffect(() => {
     document.title = "Achraf Meziouni — Software Engineer";
@@ -66,8 +64,6 @@ function SectionScroll() {
 }
 
 export default function App() {
-  const { theme, toggleTheme } = useTheme();
-
   return (
     <BrowserRouter>
       <SectionScroll />
@@ -78,7 +74,7 @@ export default function App() {
       <ScrollProgress />
       <Cursor />
 
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
 
       <div className="relative z-10 min-h-screen">
         <Routes>

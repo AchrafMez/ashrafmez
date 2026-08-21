@@ -15,53 +15,7 @@ const EXTERNAL = [
   { label: "Résumé", href: site.resume },
 ];
 
-function ThemeToggle({ theme, toggleTheme }) {
-  const dark = theme === "dark";
-  return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      data-cursor="link"
-      aria-label={`Switch to ${dark ? "light" : "dark"} theme`}
-      aria-pressed={dark}
-      className="relative h-7 w-[3.25rem] rounded-full border border-line bg-surface transition-colors duration-300"
-      style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
-    >
-      <span
-        className="absolute top-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-fg transition-transform duration-500 ease-out"
-        style={{
-          left: "3px",
-          transform: `translate3d(${dark ? "1.5rem" : "0"}, -50%, 0)`,
-        }}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="rgb(var(--bg))"
-          strokeWidth="2"
-          className="h-3 w-3"
-          aria-hidden="true"
-        >
-          {dark ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 3v1.5m6.364 1.136-1.06 1.06M21 12h-1.5m-1.136 6.364-1.06-1.06M12 19.5V21m-5.303-3.697-1.061 1.061M4.5 12H3m3.697-5.303-1.061-1.06M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z"
-            />
-          )}
-        </svg>
-      </span>
-    </button>
-  );
-}
-
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -147,27 +101,27 @@ export default function Navbar({ theme, toggleTheme }) {
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] md:hidden"
-            >
-              <span
-                className="block h-px w-5 bg-fg transition-transform duration-300"
-                style={{ transform: open ? "translateY(3px) rotate(45deg)" : "none" }}
-              />
-              <span
-                className="block h-px w-5 bg-fg transition-transform duration-300"
-                style={{ transform: open ? "translateY(-3px) rotate(-45deg)" : "none" }}
-              />
-            </button>
-          </div>
+          {/* Last child, and `md:hidden` — so from md up it leaves the flex
+              flow entirely and `justify-between` lands the links on the right
+              edge on its own, with nothing standing in for the old toggle. */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] md:hidden"
+            style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+          >
+            <span
+              className="block h-px w-5 bg-fg transition-transform duration-300"
+              style={{ transform: open ? "translateY(3px) rotate(45deg)" : "none" }}
+            />
+            <span
+              className="block h-px w-5 bg-fg transition-transform duration-300"
+              style={{ transform: open ? "translateY(-3px) rotate(-45deg)" : "none" }}
+            />
+          </button>
         </nav>
       </header>
 

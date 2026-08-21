@@ -23,8 +23,8 @@ export default function LocalTime({ className = "" }) {
 
   return (
     <span className={className}>
-      <span className="tabular-nums">{time}</span>
-      <span className="text-faint"> GMT+1</span>
+      {/* <span className="tabular-nums">{time}</span> */}
+      {/* <span className="text-faint"> GMT+1</span> */}
     </span>
   );
 }

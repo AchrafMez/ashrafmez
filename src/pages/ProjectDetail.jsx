@@ -222,9 +222,13 @@ export default function ProjectDetail() {
                       data-cursor-label="Visit"
                       className="group inline-flex items-center gap-3 rounded-full border border-fg bg-fg px-6 py-3.5 text-bg transition-colors duration-500 hover:bg-transparent hover:text-fg"
                     >
+                      {/* This pill is a white plate, so the live pip inverts to
+                          the page black — `bg-current` tracks the button's own
+                          ink, which flips back to white on hover. A --signal
+                          dot here would be white on white. */}
                       <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-70" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-70" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
                       </span>
                       <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
                         Visit live site

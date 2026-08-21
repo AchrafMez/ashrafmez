@@ -7,28 +7,28 @@ import { site } from "../data/site";
 import { useReducedMotion } from "../hooks/useEnvironment";
 
 /** 1337's wordmark, inline so it inherits the current text colour. */
-function Logo1337({ className = "" }) {
-  return (
-    <svg viewBox="0 0 76 20" fill="none" className={className} role="img" aria-label="1337">
-      <path
-        d="M2.8333 17.6623H5.92418V2.33766H2.31816V5.45455H0V1.49012e-07H8.75748V17.6623H11.8484V20H2.8333V17.6623Z"
-        fill="currentColor"
-      />
-      <path
-        d="M21.3785 17.6623H30.6512V10.9091H22.1513V8.57143H30.6512V2.33766H21.3785V0H33.4845V20H21.3785V17.6623Z"
-        fill="currentColor"
-      />
-      <path
-        d="M42.2419 17.6623H51.5146V10.9091H43.0147V8.57143H51.5146V2.33766H42.2419V0H54.3479V20H42.2419V17.6623Z"
-        fill="currentColor"
-      />
-      <path
-        d="M72.6355 2.33766H64.9084V7.27273H62.5902V0H75.2113V20H72.6355V2.33766Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
+// function Logo1337({ className = "" }) {
+//   return (
+//     <svg viewBox="0 0 76 20" fill="none" className={className} role="img" aria-label="1337">
+//       <path
+//         d="M2.8333 17.6623H5.92418V2.33766H2.31816V5.45455H0V1.49012e-07H8.75748V17.6623H11.8484V20H2.8333V17.6623Z"
+//         fill="currentColor"
+//       />
+//       <path
+//         d="M21.3785 17.6623H30.6512V10.9091H22.1513V8.57143H30.6512V2.33766H21.3785V0H33.4845V20H21.3785V17.6623Z"
+//         fill="currentColor"
+//       />
+//       <path
+//         d="M42.2419 17.6623H51.5146V10.9091H43.0147V8.57143H51.5146V2.33766H42.2419V0H54.3479V20H42.2419V17.6623Z"
+//         fill="currentColor"
+//       />
+//       <path
+//         d="M72.6355 2.33766H64.9084V7.27273H62.5902V0H75.2113V20H72.6355V2.33766Z"
+//         fill="currentColor"
+//       />
+//     </svg>
+//   );
+// }
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -54,7 +54,9 @@ export default function Hero() {
           className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mb-14"
         >
           <span className="eyebrow flex items-center gap-2.5">
-            {/* Availability dot — uncomment to bring the live green pip back.
+            {/* Availability pip — uncomment to bring it back. It renders in
+                --signal (pure white), so it reads hotter than the mono label
+                it sits beside without introducing a colour.
             <span className="relative flex h-1.5 w-1.5">
               {!reduced && site.available && (
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
@@ -92,7 +94,7 @@ export default function Hero() {
               grid-column-start, and it wins on order over `md:col-start-4`. */}
           <div className="md:col-span-9 md:col-start-4 lg:col-span-7 lg:col-start-4">
             <p className="text-balance text-xl font-light leading-[1.45] text-fg sm:text-2xl md:text-[1.75rem]">
-              I&apos;m a software engineer at{" "}
+              I&apos;m a software engineer {" "}
               <a
                 href={site.school.url}
                 target="_blank"
@@ -101,7 +103,7 @@ export default function Hero() {
                 aria-label="1337 — 42 Network school"
                 className="link-underline inline-flex items-baseline"
               >
-                <Logo1337 className="mx-0.5 inline-block h-[0.6em] w-auto" />
+                {/* <Logo1337 className="mx-0.5 inline-block h-[0.6em] w-auto" /> */}
               </a>{" "}
               who builds from the socket up — <em className="font-serif italic">systems</em> in
               C and C++, <em className="font-serif italic">products</em> in React and Node, and
@@ -120,14 +122,14 @@ export default function Hero() {
                 data-cursor="link"
                 className="link-underline font-mono text-xs uppercase tracking-[0.2em] text-fg"
               >
-                Selected work
+                {/* Selected work */}
               </Link>
               <Link
                 to="/contact"
                 data-cursor="link"
                 className="link-underline font-mono text-xs uppercase tracking-[0.2em] text-muted"
               >
-                Start a project
+                {/* Start a project */}
               </Link>
             </div>
           </div>

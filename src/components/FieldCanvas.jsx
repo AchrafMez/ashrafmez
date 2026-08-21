@@ -40,14 +40,11 @@ export default function FieldCanvas() {
     let raf = 0;
     let running = false;
 
-    const palette = { dot: "255,255,255", base: 0.07, hot: 0.55 };
-
-    const syncPalette = () => {
-      const dark = document.documentElement.classList.contains("dark");
-      palette.dot = dark ? "255,255,255" : "12,10,9";
-      palette.base = dark ? 0.075 : 0.06;
-      palette.hot = dark ? 0.6 : 0.4;
-    };
+    // White on black, at two strengths: barely-there at rest, and a lit
+    // node under the pointer. Fixed, because the page has one theme.
+    const DOT = "255,255,255";
+    const BASE_ALPHA = 0.075;
+    const HOT_ALPHA = 0.6;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -69,7 +66,6 @@ export default function FieldCanvas() {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      const { dot, base, hot } = palette;
       const active = influence > 0.001;
       const r2 = RADIUS * RADIUS;
 
@@ -78,7 +74,7 @@ export default function FieldCanvas() {
         for (let j = 0; j < rows; j++) {
           const gy = originY + j * SPACING;
 
-          let alpha = base;
+          let alpha = BASE_ALPHA;
           let size = 1;
           let x = gx;
           let y = gy;
@@ -92,7 +88,7 @@ export default function FieldCanvas() {
               // Smooth falloff: 1 at the pointer, 0 at the radius edge.
               const t = 1 - Math.sqrt(dist2) / RADIUS;
               const fall = t * t * influence;
-              alpha = base + (hot - base) * fall;
+              alpha = BASE_ALPHA + (HOT_ALPHA - BASE_ALPHA) * fall;
               size = 1 + fall * 1.6;
               // Nudge the node outward along the pointer vector.
               const push = fall * 9;
@@ -102,7 +98,7 @@ export default function FieldCanvas() {
             }
           }
 
-          ctx.fillStyle = `rgba(${dot},${alpha})`;
+          ctx.fillStyle = `rgba(${DOT},${alpha})`;
           ctx.fillRect(x - size / 2, y - size / 2, size, size);
         }
       }
@@ -151,7 +147,6 @@ export default function FieldCanvas() {
       draw();
     };
 
-    syncPalette();
     resize();
     draw();
 
@@ -160,21 +155,10 @@ export default function FieldCanvas() {
     }
     window.addEventListener("resize", onResize);
 
-    // Repaint when the theme flips so the grid never keeps stale colours.
-    const observer = new MutationObserver(() => {
-      syncPalette();
-      draw();
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("resize", onResize);
-      observer.disconnect();
     };
   }, [reduced]);
 

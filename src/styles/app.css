@@ -4,38 +4,38 @@
 
 /* ─────────────────────────────────────────────
    Design tokens
-   Monochrome by design. One signal colour, used
-   only for "alive" micro-states (status, focus).
+
+   One theme, black and white. No hue anywhere —
+   every value below is a pure neutral, so the
+   page is built entirely from the distance
+   between black and white rather than from
+   colour. The ramp is deliberate:
+
+     bg      the page — black, but not 0, so the
+             grain and the hairlines have room
+     surface the one step up: plates and frames
+     line    hairlines; structure, never text
+     faint   metadata — the quietest readable step
+     muted   secondary prose
+     fg      primary type — off-white, because
+             pure white on black halates at
+             paragraph sizes
+     signal  pure white, and the only token that
+             is. Reserved for live/current state,
+             so "white-er than the text" is what
+             reads as alive. On a white plate it
+             inverts to the page black instead —
+             see `bg-current` in ProjectDetail.
    ───────────────────────────────────────────── */
 @layer base {
   :root {
-    --bg: 250 249 247;
-    --surface: 255 255 255;
-    --fg: 12 10 9;
-    --muted: 120 113 108;
-    --faint: 168 162 158;
-    --line: 226 223 219;
-    --signal: 22 163 74;
-
-    /* Project-banner scrim strength. Light posters are pale to begin with, so
-       a white wash as heavy as the dark theme's would erase them outright. */
-    --scrim-mid: 0.34;
-    --scrim-left: 0.62;
-
-    color-scheme: light;
-  }
-
-  html.dark {
     --bg: 10 10 10;
-    --surface: 23 23 22;
-    --fg: 250 250 249;
-    --muted: 138 133 128;
-    --faint: 87 83 78;
-    --line: 38 38 36;
-    --signal: 74 222 128;
-
-    --scrim-mid: 0.45;
-    --scrim-left: 0.8;
+    --surface: 23 23 23;
+    --line: 39 39 39;
+    --faint: 122 122 122;
+    --muted: 158 158 158;
+    --fg: 237 237 237;
+    --signal: 255 255 255;
 
     color-scheme: dark;
   }
@@ -44,13 +44,12 @@
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
     -webkit-text-size-adjust: 100%;
+    background-color: rgb(var(--bg));
   }
 
   body {
     @apply bg-bg text-fg font-sans antialiased;
     overflow-x: hidden;
-    /* Prevent the OS light/dark flash on theme swap */
-    transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   ::selection {
@@ -110,14 +109,14 @@
         to top,
         rgb(var(--bg)) 0%,
         rgb(var(--bg) / 0.95) 24%,
-        rgb(var(--bg) / var(--scrim-mid)) 56%,
+        rgb(var(--bg) / 0.45) 56%,
         rgb(var(--bg) / 0.06) 88%,
         rgb(var(--bg) / 0) 100%
       ),
       linear-gradient(
         to right,
-        rgb(var(--bg) / var(--scrim-left)) 0%,
-        rgb(var(--bg) / calc(var(--scrim-left) * 0.62)) 34%,
+        rgb(var(--bg) / 0.8) 0%,
+        rgb(var(--bg) / 0.5) 34%,
         rgb(var(--bg) / 0.1) 64%,
         rgb(var(--bg) / 0) 82%
       );
@@ -150,14 +149,10 @@
   inset: -150%;
   z-index: 9998;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.055;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   will-change: transform;
   animation: grainShift 8s steps(6) infinite;
-}
-
-html.dark .grain {
-  opacity: 0.055;
 }
 
 @keyframes grainShift {

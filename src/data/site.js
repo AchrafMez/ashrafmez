@@ -3,10 +3,10 @@ export const site = {
   initials: "AM",
   role: "Software Engineer",
   email: "ashrafmeziouni@gmail.com",
-  location: "Fes, Morocco",
-  timezone: "Africa/Casablanca",
+  // location: "Fes, Morocco",
+  // timezone: "Africa/Casablanca",
   available: true,
-  availabilityNote: "Open to freelance",
+  // availabilityNote: "Open to freelance",
   resume: "/assets/Meziouni_Achraf.pdf",
   school: { name: "1337", url: "https://www.1337.ma" },
 };
