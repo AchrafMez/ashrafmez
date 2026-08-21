@@ -49,7 +49,7 @@ export default [
     tagline: "A freelancing marketplace built as nine cooperating services.",
     hoverLine: "Nine services, one marketplace",
     live: "https://1eetconnect.vercel.app/",
-    poster: "/assets/leetconnect.webp",
+    poster: "/assets/leetconnect1.webp",
     extraImages: ["/assets/schema.svg"],
     extraCaptions: ["Database schema"],
     stack: ["React", "Node.js", "PostgreSQL", "Microservices", "Redis", "Docker"],
