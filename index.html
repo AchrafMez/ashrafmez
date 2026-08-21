@@ -4,21 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Resolve theme before first paint so there is never a flash -->
-    <script>
-      (() => {
-        try {
-          const stored = localStorage.getItem("theme");
-          const dark = stored
-            ? stored === "dark"
-            : window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.classList.toggle("dark", dark);
-          document.documentElement.style.backgroundColor = dark ? "#0a0a0a" : "#faf9f7";
-        } catch (e) {
-          document.documentElement.classList.add("dark");
-        }
-      })();
-    </script>
+    <!-- The site is black-and-white only. Painting the page colour here rather
+         than waiting on the stylesheet keeps the first frame from flashing the
+         browser's default white. -->
+    <style>
+      html {
+        background-color: #0a0a0a;
+        color-scheme: dark;
+      }
+    </style>
 
     <!-- Restore the deep link stashed by the 404 fallback (GitHub Pages SPA) -->
     <script>
@@ -39,8 +33,7 @@
       content="Achraf Meziouni — software engineer at 1337 (42 Network). Systems software in C/C++, full-stack products with React, Node and Docker. Available for freelance work."
     />
     <meta name="author" content="Achraf Meziouni" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="canonical" href="https://achrafmeziouni.dev/" />
 
     <meta property="og:type" content="website" />
@@ -86,7 +79,7 @@
         "knowsAbout": ["C", "C++", "React", "Node.js", "PostgreSQL", "Docker", "Systems Programming"],
         "sameAs": [
           "https://github.com/AchrafMez",
-          "https://www.linkedin.com/in/ashrafmeziouni"
+          "https://www.linkedin.com/in/achrafmeziouni"
         ]
       }
     </script>
